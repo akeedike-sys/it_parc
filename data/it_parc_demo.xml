@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Partenaires (Fournisseurs) -->
+        <record id="partner_dell" model="res.partner">
+            <field name="name">Dell Technologies</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="partner_microsoft" model="res.partner">
+            <field name="name">Microsoft Corporation</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="partner_hp" model="res.partner">
+            <field name="name">HP Inc.</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <!-- Catégories d'équipement -->
+        <record id="it_equipment_category_desktop" model="it.equipment.category">
+            <field name="name">Ordinateur de bureau</field>
+            <field name="code">DESKTOP</field>
+        </record>
+
+        <record id="it_equipment_category_laptop" model="it.equipment.category">
+            <field name="name">Ordinateur portable</field>
+            <field name="code">LAPTOP</field>
+        </record>
+
+        <record id="it_equipment_category_printer" model="it.equipment.category">
+            <field name="name">Imprimante</field>
+            <field name="code">PRINTER</field>
+        </record>
+
+        <record id="it_equipment_category_server" model="it.equipment.category">
+            <field name="name">Serveur</field>
+            <field name="code">SERVER</field>
+        </record>
+
+        <record id="it_equipment_category_network" model="it.equipment.category">
+            <field name="name">Équipement réseau</field>
+            <field name="code">NETWORK</field>
+        </record>
+
+        <!-- Équipements -->
+        <record id="it_equipment_001" model="it.equipment">
+            <field name="name">DELL Latitude 5420 - Responsable RH</field>
+            <field name="serial_number">DEL-LAT-5420-001</field>
+            <field name="category_id" ref="it_equipment_category_laptop" />
+            <field name="manufacturer">Dell</field>
+            <field name="model">Latitude 5420</field>
+            <field name="equipment_type">Ordinateur portable</field>
+            <field name="acquisition_date">2023-06-15</field>
+            <field name="purchase_value">1200000</field>
+            <field name="warranty_end_date">2025-06-15</field>
+            <field name="processor">Intel Core i7-1280P</field>
+            <field name="ram_gb">16</field>
+            <field name="storage_gb">512</field>
+            <field name="os">Windows 11 Pro</field>
+            <field name="state">assigned</field>
+            <field name="notes">Équipement en bon état, utilisé quotidiennement.</field>
+        </record>
+
+        <record id="it_equipment_002" model="it.equipment">
+            <field name="name">HP ProBook 450 G9 - Développeur</field>
+            <field name="serial_number">HP-PRO-450-002</field>
+            <field name="category_id" ref="it_equipment_category_laptop" />
+            <field name="manufacturer">HP</field>
+            <field name="model">ProBook 450 G9</field>
+            <field name="equipment_type">Ordinateur portable</field>
+            <field name="acquisition_date">2022-09-20</field>
+            <field name="purchase_value">950000</field>
+            <field name="warranty_end_date">2024-09-20</field>
+            <field name="processor">Intel Core i5-12500H</field>
+            <field name="ram_gb">8</field>
+            <field name="storage_gb">256</field>
+            <field name="os">Ubuntu 22.04</field>
+            <field name="state">assigned</field>
+        </record>
+
+        <record id="it_equipment_003" model="it.equipment">
+            <field name="name">DELL OptiPlex 7090 - Comptabilité</field>
+            <field name="serial_number">DEL-OPT-7090-003</field>
+            <field name="category_id" ref="it_equipment_category_desktop" />
+            <field name="manufacturer">Dell</field>
+            <field name="model">OptiPlex 7090</field>
+            <field name="equipment_type">Ordinateur de bureau</field>
+            <field name="acquisition_date">2021-11-10</field>
+            <field name="purchase_value">800000</field>
+            <field name="warranty_end_date">2024-11-10</field>
+            <field name="processor">Intel Core i7-11700</field>
+            <field name="ram_gb">16</field>
+            <field name="storage_gb">512</field>
+            <field name="os">Windows 10 Pro</field>
+            <field name="state">assigned</field>
+        </record>
+
+        <record id="it_equipment_004" model="it.equipment">
+            <field name="name">Canon ImageRunner 2520 - Multifonction</field>
+            <field name="serial_number">CAN-IMG-2520-004</field>
+            <field name="category_id" ref="it_equipment_category_printer" />
+            <field name="manufacturer">Canon</field>
+            <field name="model">ImageRunner 2520</field>
+            <field name="equipment_type">Imprimante multifonction</field>
+            <field name="acquisition_date">2020-03-05</field>
+            <field name="purchase_value">2500000</field>
+            <field name="warranty_end_date">2025-03-05</field>
+            <field name="state">assigned</field>
+        </record>
+
+        <record id="it_equipment_005" model="it.equipment">
+            <field name="name">Cisco Catalyst 2960X - Switch principal</field>
+            <field name="serial_number">CIS-CAT-2960X-005</field>
+            <field name="category_id" ref="it_equipment_category_network" />
+            <field name="manufacturer">Cisco</field>
+            <field name="model">Catalyst 2960X</field>
+            <field name="equipment_type">Switch réseau</field>
+            <field name="acquisition_date">2021-05-20</field>
+            <field name="purchase_value">1500000</field>
+            <field name="warranty_end_date">2026-05-20</field>
+            <field name="state">assigned</field>
+        </record>
+
+        <record id="it_equipment_006" model="it.equipment">
+            <field name="name">Lenovo ThinkCentre M90z - Bureau</field>
+            <field name="serial_number">LEN-THK-M90Z-006</field>
+            <field name="category_id" ref="it_equipment_category_desktop" />
+            <field name="manufacturer">Lenovo</field>
+            <field name="model">ThinkCentre M90z</field>
+            <field name="equipment_type">Ordinateur tout-en-un</field>
+            <field name="acquisition_date">2022-01-15</field>
+            <field name="purchase_value">1100000</field>
+            <field name="warranty_end_date">2024-01-15</field>
+            <field name="processor">Intel Core i5-10500</field>
+            <field name="ram_gb">8</field>
+            <field name="storage_gb">256</field>
+            <field name="os">Windows 10</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="it_equipment_007" model="it.equipment">
+            <field name="name">ASUS VivoBook 15 - Stock</field>
+            <field name="serial_number">ASUS-VIVO-15-007</field>
+            <field name="category_id" ref="it_equipment_category_laptop" />
+            <field name="manufacturer">ASUS</field>
+            <field name="model">VivoBook 15</field>
+            <field name="equipment_type">Ordinateur portable</field>
+            <field name="acquisition_date">2023-02-28</field>
+            <field name="purchase_value">650000</field>
+            <field name="warranty_end_date">2025-02-28</field>
+            <field name="processor">AMD Ryzen 5 5500U</field>
+            <field name="ram_gb">8</field>
+            <field name="storage_gb">256</field>
+            <field name="os">Windows 11</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="it_equipment_008" model="it.equipment">
+            <field name="name">HP LaserJet Pro MFP M479fdw</field>
+            <field name="serial_number">HP-LASER-M479-008</field>
+            <field name="category_id" ref="it_equipment_category_printer" />
+            <field name="manufacturer">HP</field>
+            <field name="model">LaserJet Pro MFP M479fdw</field>
+            <field name="equipment_type">Imprimante multifonction</field>
+            <field name="acquisition_date">2021-08-10</field>
+            <field name="purchase_value">450000</field>
+            <field name="warranty_end_date">2024-08-10</field>
+            <field name="state">retired</field>
+        </record>
+
+        <record id="it_equipment_009" model="it.equipment">
+            <field name="name">Synology DS920+ - Serveur NAS</field>
+            <field name="serial_number">SYN-DS920-009</field>
+            <field name="category_id" ref="it_equipment_category_server" />
+            <field name="manufacturer">Synology</field>
+            <field name="model">DS920+</field>
+            <field name="equipment_type">Serveur NAS</field>
+            <field name="acquisition_date">2022-06-01</field>
+            <field name="purchase_value">2200000</field>
+            <field name="warranty_end_date">2025-06-01</field>
+            <field name="state">assigned</field>
+        </record>
+
+        <record id="it_equipment_010" model="it.equipment">
+            <field name="name">Microsoft Surface Pro 8 - Directeur</field>
+            <field name="serial_number">MST-SRF-PRO8-010</field>
+            <field name="category_id" ref="it_equipment_category_laptop" />
+            <field name="manufacturer">Microsoft</field>
+            <field name="model">Surface Pro 8</field>
+            <field name="equipment_type">Tablette/Ordinateur portable hybride</field>
+            <field name="acquisition_date">2023-01-20</field>
+            <field name="purchase_value">1600000</field>
+            <field name="warranty_end_date">2025-01-20</field>
+            <field name="processor">Intel Core i7-1280P</field>
+            <field name="ram_gb">16</field>
+            <field name="storage_gb">512</field>
+            <field name="os">Windows 11 Pro</field>
+            <field name="state">assigned</field>
+        </record>
+
+        <!-- Contrats de maintenance -->
+        <record id="it_contract_001" model="it.contract">
+            <field name="name">DELL - Support ProSupport Plus 2024</field>
+            <field name="vendor_id" ref="partner_dell" />
+            <field name="contract_type">support</field>
+            <field name="start_date">2023-06-15</field>
+            <field name="end_date">2025-06-15</field>
+            <field name="amount">300000</field>
+            <field name="notes">Contrat de support incluant assistance technique et pièces de rechange.</field>
+        </record>
+
+        <record id="it_contract_002" model="it.contract">
+            <field name="name">Microsoft Office 365 - Licence 25 postes</field>
+            <field name="vendor_id" ref="partner_microsoft" />
+            <field name="contract_type">license</field>
+            <field name="start_date">2023-01-01</field>
+            <field name="end_date">2024-12-31</field>
+            <field name="amount">500000</field>
+            <field name="notes">Licence annuelle pour 25 utilisateurs.</field>
+        </record>
+
+        <record id="it_contract_003" model="it.contract">
+            <field name="name">HP - Service de maintenance imprimantes</field>
+            <field name="vendor_id" ref="partner_hp" />
+            <field name="contract_type">maintenance</field>
+            <field name="start_date">2023-01-01</field>
+            <field name="end_date">2025-12-31</field>
+            <field name="amount">200000</field>
+            <field name="notes">Maintenance préventive et dépannage pour 3 imprimantes.</field>
+        </record>
+
+        <!-- Interventions de maintenance -->
+        <record id="it_intervention_001" model="it.intervention">
+            <field name="name">INT-001</field>
+            <field name="equipment_id" ref="it_equipment_002" />
+            <field name="intervention_type">preventive</field>
+            <field name="technician_id" ref="hr.employee_nch" />
+            <field name="start_date">2024-01-10 09:00:00</field>
+            <field name="end_date">2024-01-10 11:30:00</field>
+            <field name="description">Nettoyage système, mise à jour BIOS et drivers.</field>
+            <field name="intervention_report">Intervention effectuée sans problème. Système optimisé.</field>
+            <field name="cost">150000</field>
+            <field name="state">completed</field>
+        </record>
+
+        <record id="it_intervention_002" model="it.intervention">
+            <field name="name">INT-002</field>
+            <field name="equipment_id" ref="it_equipment_001" />
+            <field name="intervention_type">corrective</field>
+            <field name="technician_id" ref="hr.employee_nch" />
+            <field name="start_date">2024-02-05 14:00:00</field>
+            <field name="end_date">2024-02-05 16:00:00</field>
+            <field name="description">Écran externe défaillant, remplacement clavier.</field>
+            <field name="intervention_report">Clavier remplacé. Écran a été réparé par fournisseur.</field>
+            <field name="cost">300000</field>
+            <field name="state">completed</field>
+        </record>
+
+        <record id="it_intervention_003" model="it.intervention">
+            <field name="name">INT-003</field>
+            <field name="equipment_id" ref="it_equipment_003" />
+            <field name="intervention_type">preventive</field>
+            <field name="technician_id" ref="hr.employee_nch" />
+            <field name="start_date">2024-02-20 10:00:00</field>
+            <field name="end_date">2024-02-20 12:00:00</field>
+            <field name="description">Contrôle matériel et mise à jour système d'exploitation.</field>
+            <field name="intervention_report">Système mis à jour, tout fonctionne normalement.</field>
+            <field name="cost">100000</field>
+            <field name="state">completed</field>
+        </record>
+
+        <record id="it_intervention_004" model="it.intervention">
+            <field name="name">INT-004</field>
+            <field name="equipment_id" ref="it_equipment_004" />
+            <field name="intervention_type">preventive</field>
+            <field name="technician_id" ref="hr.employee_nch" />
+            <field name="start_date">2024-03-01 08:30:00</field>
+            <field name="end_date">2024-03-01 10:30:00</field>
+            <field name="description">Nettoyage, remplacement toner et révision technique.</field>
+            <field name="intervention_report">Révision complète effectuée, imprimante en parfait état.</field>
+            <field name="cost">180000</field>
+            <field name="state">completed</field>
+        </record>
+
+        <record id="it_intervention_005" model="it.intervention">
+            <field name="name">INT-005</field>
+            <field name="equipment_id" ref="it_equipment_010" />
+            <field name="intervention_type">corrective</field>
+            <field name="technician_id" ref="hr.employee_nch" />
+            <field name="start_date">2024-03-10 11:00:00</field>
+            <field name="end_date">2024-03-10 13:30:00</field>
+            <field name="description">Batterie défaillante, remplacement écran tactile.</field>
+            <field name="intervention_report">Batterie et écran remplacés. Appareil testé et fonctionnel.</field>
+            <field name="cost">450000</field>
+            <field name="state">completed</field>
+        </record>
+    </data>
+</odoo>
