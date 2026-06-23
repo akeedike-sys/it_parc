@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu principal IT Parc -->
+    <menuitem id="menu_it_parc_root" name="Gestion Parc IT" web_icon="it_parc,static/description/icon.png" />
+
+    <!-- Menu Équipements -->
+    <menuitem id="menu_it_equipment" name="Équipements" parent="menu_it_parc_root" sequence="10" />
+    <action id="action_it_equipment" name="Équipements" type="ir.actions.act_window" res_model="it.equipment" view_mode="tree,form" />
+    <menuitem id="menu_it_equipment_list" name="Liste des équipements" parent="menu_it_equipment" action="action_it_equipment" sequence="10" />
+
+    <action id="action_it_equipment_category" name="Catégories d'équipement" type="ir.actions.act_window" res_model="it.equipment.category" view_mode="tree,form" />
+    <menuitem id="menu_it_equipment_category" name="Catégories" parent="menu_it_equipment" action="action_it_equipment_category" sequence="20" />
+
+    <!-- Menu Affectations -->
+    <menuitem id="menu_it_affectation" name="Affectations" parent="menu_it_parc_root" sequence="20" />
+    <action id="action_it_affectation" name="Affectations" type="ir.actions.act_window" res_model="it.affectation" view_mode="tree,form" />
+    <menuitem id="menu_it_affectation_list" name="Historique des affectations" parent="menu_it_affectation" action="action_it_affectation" sequence="10" />
+
+    <!-- Menu Interventions -->
+    <menuitem id="menu_it_intervention" name="Interventions" parent="menu_it_parc_root" sequence="30" />
+    <action id="action_it_intervention" name="Interventions" type="ir.actions.act_window" res_model="it.intervention" view_mode="tree,form" />
+    <menuitem id="menu_it_intervention_list" name="Liste des interventions" parent="menu_it_intervention" action="action_it_intervention" sequence="10" />
+
+    <!-- Menu Contrats -->
+    <menuitem id="menu_it_contract" name="Contrats" parent="menu_it_parc_root" sequence="40" />
+    <action id="action_it_contract" name="Contrats" type="ir.actions.act_window" res_model="it.contract" view_mode="tree,form" />
+    <menuitem id="menu_it_contract_list" name="Liste des contrats" parent="menu_it_contract" action="action_it_contract" sequence="10" />
+
+    <!-- Menu Alertes -->
+    <menuitem id="menu_it_alert" name="Alertes" parent="menu_it_parc_root" sequence="50" />
+    <action id="action_it_alert" name="Alertes" type="ir.actions.act_window" res_model="it.alert" view_mode="tree,form" />
+    <menuitem id="menu_it_alert_list" name="Alertes" parent="menu_it_alert" action="action_it_alert" sequence="10" />
+
+    <!-- Menu Dashboard -->
+    <menuitem id="menu_it_dashboard" name="Tableau de bord" parent="menu_it_parc_root" sequence="1" />
+    <action id="action_it_dashboard" name="Tableau de bord IT" type="ir.actions.client" tag="it_dashboard" />
+    <menuitem id="menu_it_dashboard_main" name="Tableau de bord" parent="menu_it_dashboard" action="action_it_dashboard" sequence="10" />
+
+    <!-- Menu Outils (Wizards) -->
+    <menuitem id="menu_it_tools" name="Outils" parent="menu_it_parc_root" sequence="60" />
+
+    <action id="action_it_import_wizard" name="Importer un inventaire CSV" type="ir.actions.act_window" res_model="it.import.wizard" view_mode="form" target="new" />
+    <menuitem id="menu_it_import" name="Importer CSV" parent="menu_it_tools" action="action_it_import_wizard" sequence="10" />
+
+    <!-- Menu Rapports -->
+    <menuitem id="menu_it_reports" name="Rapports" parent="menu_it_parc_root" sequence="70" />
+</odoo>
