@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_it_equipment_user,IT Equipment User,model_it_equipment,it_parc.group_it_technician,1,0,0,0
+access_it_equipment_manager,IT Equipment Manager,model_it_equipment,it_parc.group_it_manager,1,1,1,1
+access_it_affectation_user,IT Affectation User,model_it_affectation,it_parc.group_it_technician,1,0,0,0
+access_it_affectation_manager,IT Affectation Manager,model_it_affectation,it_parc.group_it_manager,1,1,1,1
+access_it_intervention_user,IT Intervention User,model_it_intervention,it_parc.group_it_technician,1,1,1,0
+access_it_intervention_manager,IT Intervention Manager,model_it_intervention,it_parc.group_it_manager,1,1,1,1
+access_it_contract_user,IT Contract User,model_it_contract,it_parc.group_it_technician,1,0,0,0
+access_it_contract_manager,IT Contract Manager,model_it_contract,it_parc.group_it_manager,1,1,1,1
+access_it_alert_user,IT Alert User,model_it_alert,it_parc.group_it_technician,1,1,0,0
+access_it_alert_manager,IT Alert Manager,model_it_alert,it_parc.group_it_manager,1,1,1,1
+access_it_equipment_category_user,IT Equipment Category User,model_it_equipment_category,it_parc.group_it_technician,1,0,0,0
+access_it_equipment_category_manager,IT Equipment Category Manager,model_it_equipment_category,it_parc.group_it_manager,1,1,1,1
