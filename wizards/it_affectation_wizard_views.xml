@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_affectation_wizard_form" model="ir.ui.view">
+        <field name="name">it.affectation.wizard.form</field>
+        <field name="model">it.affectation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Réaffecter un équipement">
+                <group>
+                    <group string="Équipement">
+                        <field name="equipment_id" />
+                    </group>
+                    <group string="Nouvelle affectation">
+                        <field name="new_employee_id" />
+                        <field name="new_department_id" />
+                    </group>
+                </group>
+                <field name="reason" nolabel="1" placeholder="Motif de la réaffectation..." />
+                <footer>
+                    <button name="action_reassign" string="Réaffecter" type="object" class="btn-primary" />
+                    <button string="Annuler" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
