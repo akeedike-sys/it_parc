@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue tree IT Alert -->
+    <record id="view_it_alert_tree" model="ir.ui.view">
+        <field name="name">it.alert.tree</field>
+        <field name="model">it.alert</field>
+        <field name="arch" type="xml">
+            <tree string="Alertes" colors="red:state=='pending';yellow:state=='acknowledged';green:state=='resolved'">
+                <field name="name" />
+                <field name="alert_type" />
+                <field name="target_date" />
+                <field name="state" />
+                <field name="responsible_id" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue form IT Alert -->
+    <record id="view_it_alert_form" model="ir.ui.view">
+        <field name="name">it.alert.form</field>
+        <field name="model">it.alert</field>
+        <field name="arch" type="xml">
+            <form string="Alerte">
+                <header>
+                    <button name="action_acknowledge" string="Prendre en compte" type="object" class="btn-primary" states="pending" />
+                    <button name="action_resolve" string="Résoudre" type="object" class="btn-primary" states="acknowledged" />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Informations générales">
+                            <field name="name" />
+                            <field name="alert_type" />
+                        </group>
+                        <group string="Responsabilité">
+                            <field name="responsible_id" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Références">
+                            <field name="equipment_id" />
+                            <field name="contract_id" />
+                        </group>
+                        <group string="Dates">
+                            <field name="alert_date" />
+                            <field name="target_date" />
+                            <field name="days_before" />
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Description de l'alerte..." />
+                    </group>
+                    <group string="Actions effectuées">
+                        <field name="action_taken" nolabel="1" placeholder="Actions..." />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue search IT Alert -->
+    <record id="view_it_alert_search" model="ir.ui.view">
+        <field name="name">it.alert.search</field>
+        <field name="model">it.alert</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="alert_type" />
+                <field name="responsible_id" />
+                <filter name="pending" string="En attente" domain="[('state', '=', 'pending')]" />
+                <filter name="acknowledged" string="Prise en compte" domain="[('state', '=', 'acknowledged')]" />
+                <filter name="warranty" string="Garantie" domain="[('alert_type', '=', 'warranty')]" />
+                <filter name="contract" string="Contrat" domain="[('alert_type', '=', 'contract')]" />
+            </search>
+        </field>
+    </record>
+</odoo>
