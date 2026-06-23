@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_it_equipment_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Fiche d'équipement informatique</h2>
+                        <table class="table table-sm">
+                            <tr>
+                                <td width="50%">
+                                    <strong>Nom:</strong> <t t-esc="doc.name" />
+                                </td>
+                                <td>
+                                    <strong>Numéro de série:</strong> <t t-esc="doc.serial_number" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Catégorie:</strong> <t t-esc="doc.category_id.name" />
+                                </td>
+                                <td>
+                                    <strong>Type:</strong> <t t-esc="doc.equipment_type" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Fabricant:</strong> <t t-esc="doc.manufacturer" />
+                                </td>
+                                <td>
+                                    <strong>Modèle:</strong> <t t-esc="doc.model" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3>Caractéristiques techniques</h3>
+                        <table class="table table-sm">
+                            <tr>
+                                <td>
+                                    <strong>Processeur:</strong> <t t-esc="doc.processor or 'N/A'" />
+                                </td>
+                                <td>
+                                    <strong>RAM:</strong> <t t-esc="doc.ram_gb or 'N/A'" /> GB
+                                </td>
+                                <td>
+                                    <strong>Stockage:</strong> <t t-esc="doc.storage_gb or 'N/A'" /> GB
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <strong>Système d'exploitation:</strong> <t t-esc="doc.os or 'N/A'" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3>Informations de garantie et achat</h3>
+                        <table class="table table-sm">
+                            <tr>
+                                <td>
+                                    <strong>Date d'acquisition:</strong> <t t-esc="doc.acquisition_date.strftime('%d/%m/%Y')" />
+                                </td>
+                                <td>
+                                    <strong>Valeur d'achat:</strong> <t t-esc="'{:,.0f} FCFA'.format(doc.purchase_value)" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Fin de garantie:</strong> <t t-esc="doc.warranty_end_date.strftime('%d/%m/%Y') if doc.warranty_end_date else 'N/A'" />
+                                </td>
+                                <td>
+                                    <strong>Sous garantie:</strong> <t t-esc="'Oui' if doc.is_under_warranty else 'Non'" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3>Affectation actuelle</h3>
+                        <table class="table table-sm">
+                            <tr>
+                                <td>
+                                    <strong>Employé:</strong> <t t-esc="doc.employee_id.name if doc.employee_id else 'Non affecté'" />
+                                </td>
+                                <td>
+                                    <strong>Département:</strong> <t t-esc="doc.department_id.name if doc.department_id else 'N/A'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Localisation:</strong> <t t-esc="doc.location or 'N/A'" />
+                                </td>
+                                <td>
+                                    <strong>État:</strong> <t t-esc="dict(doc._fields['state'].selection).get(doc.state, doc.state)" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3>Historique des maintenances</h3>
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Technicien</th>
+                                    <th>Durée (h)</th>
+                                    <th>Coût (FCFA)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.intervention_ids" t-as="intervention">
+                                    <tr>
+                                        <td><t t-esc="intervention.start_date.strftime('%d/%m/%Y')" /></td>
+                                        <td><t t-esc="dict(intervention._fields['intervention_type'].selection).get(intervention.intervention_type, intervention.intervention_type)" /></td>
+                                        <td><t t-esc="intervention.technician_id.name" /></td>
+                                        <td><t t-esc="intervention.duration_hours" /></td>
+                                        <td><t t-esc="'{:,.0f}'.format(intervention.cost)" /></td>
+                                    </tr>
+                                </t>
+                                <t t-if="not doc.intervention_ids">
+                                    <tr>
+                                        <td colspan="5">Aucune intervention enregistrée</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <h3>Résumé financier</h3>
+                        <table class="table table-sm">
+                            <tr>
+                                <td>
+                                    <strong>Coût total de maintenance:</strong> <t t-esc="'{:,.0f} FCFA'.format(doc.total_maintenance_cost)" />
+                                </td>
+                                <td>
+                                    <strong>Nombre d'interventions:</strong> <t t-esc="doc.maintenance_count" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <t t-if="doc.notes">
+                            <h3>Notes</h3>
+                            <p><t t-esc="doc.notes" /></p>
+                        </t>
+                    </div>
+                </t t-call>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_it_equipment" model="ir.actions.report">
+        <field name="name">Fiche d'équipement</field>
+        <field name="model">it.equipment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">it_parc.report_it_equipment_template</field>
+        <field name="binding_model_id" ref="model_it_equipment" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
