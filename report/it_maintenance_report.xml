@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_it_maintenance_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Rapport d'historique des maintenances</h2>
+                    <p>
+                        <strong>Date de rapport:</strong>
+                        <t t-esc="datetime.datetime.now().strftime('%d/%m/%Y %H:%M')" />
+                    </p>
+                    <p>
+                        <strong>Total interventions:</strong> <t t-esc="len(docs)" />
+                    </p>
+
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Numéro</th>
+                                <th>Équipement</th>
+                                <th>Type</th>
+                                <th>Technicien</th>
+                                <th>Date début</th>
+                                <th>Date fin</th>
+                                <th>Durée (h)</th>
+                                <th>Coût (FCFA)</th>
+                                <th>État</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="intervention">
+                                <tr>
+                                    <td><t t-esc="intervention.name" /></td>
+                                    <td><t t-esc="intervention.equipment_id.name" /></td>
+                                    <td><t t-esc="dict(intervention._fields['intervention_type'].selection).get(intervention.intervention_type, intervention.intervention_type)" /></td>
+                                    <td><t t-esc="intervention.technician_id.name" /></td>
+                                    <td><t t-esc="intervention.start_date.strftime('%d/%m/%Y %H:%M') if intervention.start_date else '-'" /></td>
+                                    <td><t t-esc="intervention.end_date.strftime('%d/%m/%Y %H:%M') if intervention.end_date else '-'" /></td>
+                                    <td><t t-esc="intervention.duration_hours" /></td>
+                                    <td><t t-esc="'{:,.0f}'.format(intervention.cost)" /></td>
+                                    <td><t t-esc="dict(intervention._fields['state'].selection).get(intervention.state, intervention.state)" /></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Résumé par type d'intervention</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Nombre</th>
+                                <th>Durée totale (h)</th>
+                                <th>Coût total (FCFA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="types" t-value="{'corrective': 'Corrective', 'preventive': 'Préventive'}" />
+                            <t t-foreach="types.items()" t-as="type_pair">
+                                <t t-set="type_docs" t-value="[doc for doc in docs if doc.intervention_type == type_pair[0]]" />
+                                <t t-if="type_docs">
+                                    <tr>
+                                        <td><t t-esc="type_pair[1]" /></td>
+                                        <td><t t-esc="len(type_docs)" /></td>
+                                        <td><t t-esc="sum(doc.duration_hours for doc in type_docs)" /></td>
+                                        <td><t t-esc="'{:,.0f}'.format(sum(doc.cost for doc in type_docs))" /></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Résumé par équipement</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Équipement</th>
+                                <th>Nombre interventions</th>
+                                <th>Coût total (FCFA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="equipments" t-value="set(doc.equipment_id for doc in docs)" />
+                            <t t-foreach="equipments" t-as="equip">
+                                <t t-set="equip_docs" t-value="[doc for doc in docs if doc.equipment_id == equip]" />
+                                <tr>
+                                    <td><t t-esc="equip.name" /></td>
+                                    <td><t t-esc="len(equip_docs)" /></td>
+                                    <td><t t-esc="'{:,.0f}'.format(sum(doc.cost for doc in equip_docs))" /></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Résumé par technicien</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Technicien</th>
+                                <th>Nombre interventions</th>
+                                <th>Durée totale (h)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="technicians" t-value="set(doc.technician_id for doc in docs)" />
+                            <t t-foreach="technicians" t-as="tech">
+                                <t t-set="tech_docs" t-value="[doc for doc in docs if doc.technician_id == tech]" />
+                                <tr>
+                                    <td><t t-esc="tech.name" /></td>
+                                    <td><t t-esc="len(tech_docs)" /></td>
+                                    <td><t t-esc="sum(doc.duration_hours for doc in tech_docs)" /></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Statistiques générales</h3>
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>Coût total de maintenance:</strong></td>
+                            <td><t t-esc="'{:,.0f} FCFA'.format(sum(doc.cost for doc in docs))" /></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Durée totale de maintenance:</strong></td>
+                            <td><t t-esc="sum(doc.duration_hours for doc in docs)" /> heures</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Coût moyen par intervention:</strong></td>
+                            <td><t t-esc="'{:,.0f} FCFA'.format(sum(doc.cost for doc in docs) / len(docs)) if docs else '0'" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </t t-call>
+        </t>
+    </template>
+
+    <record id="action_report_it_maintenance" model="ir.actions.report">
+        <field name="name">Rapport de maintenance</field>
+        <field name="model">it.intervention</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">it_parc.report_it_maintenance_template</field>
+        <field name="binding_model_id" ref="model_it_intervention" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
