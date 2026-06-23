@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_it_inventory_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Rapport d'inventaire informatique</h2>
+                    <p>
+                        <strong>Date de rapport:</strong>
+                        <t t-esc="datetime.datetime.now().strftime('%d/%m/%Y %H:%M')" />
+                    </p>
+                    <p>
+                        <strong>Total équipements:</strong> <t t-esc="len(docs)" />
+                    </p>
+
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Numéro de série</th>
+                                <th>Catégorie</th>
+                                <th>Employé affecté</th>
+                                <th>Département</th>
+                                <th>État</th>
+                                <th>Sous garantie</th>
+                                <th>Valeur (FCFA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="equipment">
+                                <tr>
+                                    <td><t t-esc="equipment.name" /></td>
+                                    <td><t t-esc="equipment.serial_number" /></td>
+                                    <td><t t-esc="equipment.category_id.name" /></td>
+                                    <td><t t-esc="equipment.employee_id.name if equipment.employee_id else '-'" /></td>
+                                    <td><t t-esc="equipment.department_id.name if equipment.department_id else '-'" /></td>
+                                    <td><t t-esc="dict(equipment._fields['state'].selection).get(equipment.state, equipment.state)" /></td>
+                                    <td><t t-esc="'Oui' if equipment.is_under_warranty else 'Non'" /></td>
+                                    <td><t t-esc="'{:,.0f}'.format(equipment.purchase_value)" /></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Résumé par catégorie</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Catégorie</th>
+                                <th>Nombre</th>
+                                <th>Valeur totale (FCFA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="categories" t-value="set(doc.category_id for doc in docs)" />
+                            <t t-foreach="categories" t-as="cat">
+                                <t t-set="cat_docs" t-value="[doc for doc in docs if doc.category_id == cat]" />
+                                <tr>
+                                    <td><t t-esc="cat.name" /></td>
+                                    <td><t t-esc="len(cat_docs)" /></td>
+                                    <td><t t-esc="'{:,.0f}'.format(sum(doc.purchase_value for doc in cat_docs))" /></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Résumé par département</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Département</th>
+                                <th>Nombre d'équipements</th>
+                                <th>Valeur totale (FCFA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="departments" t-value="set(doc.department_id for doc in docs if doc.department_id)" />
+                            <t t-foreach="departments" t-as="dept">
+                                <t t-set="dept_docs" t-value="[doc for doc in docs if doc.department_id == dept]" />
+                                <tr>
+                                    <td><t t-esc="dept.name" /></td>
+                                    <td><t t-esc="len(dept_docs)" /></td>
+                                    <td><t t-esc="'{:,.0f}'.format(sum(doc.purchase_value for doc in dept_docs))" /></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Résumé par état</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>État</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="states" t-value="{'draft': 'Brouillon', 'assigned': 'Affecté', 'maintenance': 'En maintenance', 'retired': 'Retiré'}" />
+                            <t t-foreach="states.items()" t-as="state_pair">
+                                <t t-set="count" t-value="len([doc for doc in docs if doc.state == state_pair[0]])" />
+                                <t t-if="count > 0">
+                                    <tr>
+                                        <td><t t-esc="state_pair[1]" /></td>
+                                        <td><t t-esc="count" /></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Statistiques générales</h3>
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>Valeur totale du parc:</strong></td>
+                            <td><t t-esc="'{:,.0f} FCFA'.format(sum(doc.purchase_value for doc in docs))" /></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Équipements sous garantie:</strong></td>
+                            <td><t t-esc="len([doc for doc in docs if doc.is_under_warranty])" /></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Coût total de maintenance:</strong></td>
+                            <td><t t-esc="'{:,.0f} FCFA'.format(sum(doc.total_maintenance_cost for doc in docs))" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </t t-call>
+        </t>
+    </template>
+
+    <record id="action_report_it_inventory" model="ir.actions.report">
+        <field name="name">Rapport d'inventaire</field>
+        <field name="model">it.equipment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">it_parc.report_it_inventory_template</field>
+        <field name="binding_model_id" ref="model_it_equipment" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
