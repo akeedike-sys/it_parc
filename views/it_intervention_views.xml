@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue tree IT Intervention -->
+    <record id="view_it_intervention_tree" model="ir.ui.view">
+        <field name="name">it.intervention.tree</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <tree string="Interventions">
+                <field name="name" />
+                <field name="equipment_id" />
+                <field name="intervention_type" />
+                <field name="technician_id" />
+                <field name="start_date" />
+                <field name="cost" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue form IT Intervention -->
+    <record id="view_it_intervention_form" model="ir.ui.view">
+        <field name="name">it.intervention.form</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <form string="Intervention">
+                <header>
+                    <button name="action_start" string="Démarrer" type="object" class="btn-primary" states="draft" />
+                    <button name="action_complete" string="Terminer" type="object" class="btn-primary" states="in_progress" />
+                    <button name="action_cancel" string="Annuler" type="object" states="draft,in_progress" />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Informations générales">
+                            <field name="name" />
+                            <field name="equipment_id" />
+                            <field name="intervention_type" />
+                        </group>
+                        <group string="Responsabilité">
+                            <field name="technician_id" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Dates et durée">
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="duration_hours" />
+                        </group>
+                        <group string="Coût">
+                            <field name="cost" />
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" />
+                    </group>
+                    <group string="Rapport">
+                        <field name="intervention_report" nolabel="1" placeholder="Rapport d'intervention..." />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue search IT Intervention -->
+    <record id="view_it_intervention_search" model="ir.ui.view">
+        <field name="name">it.intervention.search</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="equipment_id" />
+                <field name="technician_id" />
+                <filter name="corrective" string="Correctives" domain="[('intervention_type', '=', 'corrective')]" />
+                <filter name="preventive" string="Préventives" domain="[('intervention_type', '=', 'preventive')]" />
+                <filter name="completed" string="Terminées" domain="[('state', '=', 'completed')]" />
+                <filter name="in_progress" string="En cours" domain="[('state', '=', 'in_progress')]" />
+            </search>
+        </field>
+    </record>
+</odoo>
