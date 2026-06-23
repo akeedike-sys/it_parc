@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_dashboard" model="ir.ui.view">
+        <field name="name">it.dashboard</field>
+        <field name="model">it.equipment</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <t t-name="it_parc.dashboard">
+                <div class="it-dashboard-container">
+                    <div class="it-dashboard-header">
+                        <h1>Tableau de bord - Gestion du Parc Informatique</h1>
+                        <p class="text-muted">Vue d'ensemble des équipements et des alertes</p>
+                    </div>
+
+                    <div class="it-dashboard-content">
+                        <!-- Row 1: KPIs -->
+                        <div class="row it-kpis">
+                            <div class="col-md-3">
+                                <div class="it-kpi-card total-equipment">
+                                    <div class="it-kpi-icon">📦</div>
+                                    <div class="it-kpi-content">
+                                        <div class="it-kpi-number" id="total_equipment">-</div>
+                                        <div class="it-kpi-label">Équipements total</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="it-kpi-card assigned-equipment">
+                                    <div class="it-kpi-icon">✓</div>
+                                    <div class="it-kpi-content">
+                                        <div class="it-kpi-number" id="assigned_equipment">-</div>
+                                        <div class="it-kpi-label">Équipements affectés</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="it-kpi-card warranty-equipment">
+                                    <div class="it-kpi-icon">🛡️</div>
+                                    <div class="it-kpi-content">
+                                        <div class="it-kpi-number" id="warranty_equipment">-</div>
+                                        <div class="it-kpi-label">Sous garantie</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="it-kpi-card maintenance-cost">
+                                    <div class="it-kpi-icon">💰</div>
+                                    <div class="it-kpi-content">
+                                        <div class="it-kpi-number" id="total_maintenance_cost">-</div>
+                                        <div class="it-kpi-label">Coût maintenance</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Chart and Alerts -->
+                        <div class="row it-content-row">
+                            <div class="col-md-8">
+                                <div class="it-card">
+                                    <div class="it-card-header">
+                                        <h3>Distribution par catégorie</h3>
+                                    </div>
+                                    <div class="it-card-body">
+                                        <canvas id="categoryChart" height="300"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="it-card">
+                                    <div class="it-card-header">
+                                        <h3>Alertes actives</h3>
+                                    </div>
+                                    <div class="it-card-body">
+                                        <div id="alerts_container" class="it-alerts-list">
+                                            <!-- Alertes générées dynamiquement -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Equipment Status -->
+                        <div class="row it-content-row">
+                            <div class="col-md-12">
+                                <div class="it-card">
+                                    <div class="it-card-header">
+                                        <h3>État des équipements</h3>
+                                    </div>
+                                    <div class="it-card-body">
+                                        <div class="it-status-grid" id="status_grid">
+                                            <!-- Statuts générés dynamiquement -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 4: Recent Interventions -->
+                        <div class="row it-content-row">
+                            <div class="col-md-12">
+                                <div class="it-card">
+                                    <div class="it-card-header">
+                                        <h3>Interventions récentes</h3>
+                                    </div>
+                                    <div class="it-card-body">
+                                        <table class="table table-sm it-recent-interventions" id="recent_interventions">
+                                            <thead>
+                                                <tr>
+                                                    <th>Équipement</th>
+                                                    <th>Type</th>
+                                                    <th>Technicien</th>
+                                                    <th>Date</th>
+                                                    <th>Coût</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Interventions générées dynamiquement -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </field>
+    </record>
+</odoo>
