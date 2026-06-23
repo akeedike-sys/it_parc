@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue tree IT Contract -->
+    <record id="view_it_contract_tree" model="ir.ui.view">
+        <field name="name">it.contract.tree</field>
+        <field name="model">it.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Contrats" colors="red:is_expiring_soon;green:is_active">
+                <field name="name" />
+                <field name="vendor_id" />
+                <field name="contract_type" />
+                <field name="end_date" />
+                <field name="days_until_expiration" />
+                <field name="is_active" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue form IT Contract -->
+    <record id="view_it_contract_form" model="ir.ui.view">
+        <field name="name">it.contract.form</field>
+        <field name="model">it.contract</field>
+        <field name="arch" type="xml">
+            <form string="Contrat">
+                <header>
+                    <button name="%(action_it_contract_renewal_wizard)d" string="Renouveler" type="action" class="btn-primary" states="draft" context="{'default_contract_id': id}" />
+                    <field name="is_active" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Informations générales">
+                            <field name="name" />
+                            <field name="vendor_id" />
+                            <field name="contract_type" />
+                        </group>
+                        <group string="Statut">
+                            <field name="is_active" />
+                            <field name="is_expiring_soon" />
+                            <field name="days_until_expiration" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Dates">
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="renewal_date" />
+                        </group>
+                        <group string="Montant">
+                            <field name="amount" />
+                        </group>
+                    </group>
+                    <field name="equipment_ids" string="Équipements couverts" widget="many2many_tags" />
+                    <field name="notes" nolabel="1" placeholder="Notes..." />
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue search IT Contract -->
+    <record id="view_it_contract_search" model="ir.ui.view">
+        <field name="name">it.contract.search</field>
+        <field name="model">it.contract</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="vendor_id" />
+                <field name="contract_type" />
+                <filter name="active" string="Actifs" domain="[('is_active', '=', True)]" />
+                <filter name="expiring_soon" string="Expirant bientôt" domain="[('is_expiring_soon', '=', True)]" />
+                <filter name="maintenance" string="Maintenance" domain="[('contract_type', '=', 'maintenance')]" />
+                <filter name="license" string="Licence" domain="[('contract_type', '=', 'license')]" />
+            </search>
+        </field>
+    </record>
+</odoo>
