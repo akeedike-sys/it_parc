@@ -1,0 +1,285 @@
+/* IT Parc Dashboard Styles */
+
+.it-dashboard-container {
+    background-color: #f5f7fa;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.it-dashboard-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.it-dashboard-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.it-dashboard-header .text-muted {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+/* KPIs */
+.it-kpis {
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.it-kpi-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.it-kpi-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.it-kpi-card.total-equipment {
+    border-left: 4px solid #3498db;
+}
+
+.it-kpi-card.assigned-equipment {
+    border-left: 4px solid #27ae60;
+}
+
+.it-kpi-card.warranty-equipment {
+    border-left: 4px solid #f39c12;
+}
+
+.it-kpi-card.maintenance-cost {
+    border-left: 4px solid #e74c3c;
+}
+
+.it-kpi-icon {
+    font-size: 32px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.it-kpi-content {
+    flex: 1;
+}
+
+.it-kpi-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.it-kpi-label {
+    font-size: 12px;
+    color: #95a5a6;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Cards */
+.it-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.it-card-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.it-card-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.it-card-body {
+    padding: 20px;
+}
+
+.it-content-row {
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+/* Chart */
+#categoryChart {
+    max-height: 300px;
+}
+
+/* Alerts */
+.it-alerts-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.it-alert-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border-left: 4px solid #f39c12;
+    background-color: #fef5e7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.it-alert-item.warranty {
+    border-left-color: #f39c12;
+    background-color: #fef5e7;
+}
+
+.it-alert-item.contract {
+    border-left-color: #e74c3c;
+    background-color: #fadbd8;
+}
+
+.it-alert-item.maintenance {
+    border-left-color: #3498db;
+    background-color: #d6eaf8;
+}
+
+.it-alert-item .it-alert-type {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.it-alert-item .it-alert-days {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    color: #2c3e50;
+}
+
+.it-no-alerts {
+    text-align: center;
+    color: #7f8c8d;
+    padding: 30px 0;
+}
+
+/* Status Grid */
+.it-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.it-status-badge {
+    padding: 15px;
+    text-align: center;
+    border-radius: 6px;
+    background-color: #ecf0f1;
+    border: 2px solid transparent;
+}
+
+.it-status-badge.draft {
+    background-color: #ecf0f1;
+    border-color: #95a5a6;
+}
+
+.it-status-badge.assigned {
+    background-color: #d5f4e6;
+    border-color: #27ae60;
+}
+
+.it-status-badge.maintenance {
+    background-color: #fceaa3;
+    border-color: #f39c12;
+}
+
+.it-status-badge.retired {
+    background-color: #fadbd8;
+    border-color: #e74c3c;
+}
+
+.it-status-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.it-status-count {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Table */
+.it-recent-interventions {
+    margin: 0;
+}
+
+.it-recent-interventions tbody tr {
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.it-recent-interventions tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.it-recent-interventions td {
+    padding: 12px;
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+.it-no-data {
+    text-align: center;
+    color: #7f8c8d;
+    padding: 40px 0;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .it-dashboard-container {
+        padding: 15px;
+    }
+
+    .it-dashboard-header h1 {
+        font-size: 24px;
+    }
+
+    .it-kpi-card {
+        padding: 15px;
+    }
+
+    .it-kpi-number {
+        font-size: 20px;
+    }
+
+    .it-status-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.it-kpi-card,
+.it-card {
+    animation: slideIn 0.3s ease-out;
+}
